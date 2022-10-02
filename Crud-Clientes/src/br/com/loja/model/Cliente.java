@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Cliente {
 	
+	private int id;
 	private String nome;
 	private String sobrenome;
 	private Long idade;
@@ -12,6 +13,13 @@ public class Cliente {
 	private String senha;
 	private String celular;
 	private String email;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -61,6 +69,7 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 
 }
