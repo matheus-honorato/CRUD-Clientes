@@ -10,9 +10,10 @@ public class ConnectionFactory {
 	
 	private static final String PASSWORD = "";
 	
-	private static final String DATABASE_URL = "jdbc://mysql:localhost:3306/";
+	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/loja";
 
-	public static void main(String[] args) throws Exception {
+	
+	public static Connection createConnectionToMySQL() throws Exception {
 		Connection connection = null;
 		
 		try {
@@ -23,14 +24,22 @@ public class ConnectionFactory {
 			connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
 			
 		} catch(ClassNotFoundException ex){
-			System.out.println("Drive do banco n�o foi localizado");
+			System.out.println("Drive do banco não foi localizado");
 		} catch(SQLException ex) {
 			System.out.println("Ocorreu um erro ao acessar o banco: " + ex.getMessage());
-		} finally {
-			if(connection != null) {
-				System.out.println("Conex�o realizada com sucesso");
-				connection.close();
-			}
+		}
+		
+		return connection;
+		
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		Connection conn = createConnectionToMySQL();
+		
+		if(conn != null) {
+			System.out.println("Conexão realizada com sucesso");
+			conn.close();
 		}
 	}
 	
