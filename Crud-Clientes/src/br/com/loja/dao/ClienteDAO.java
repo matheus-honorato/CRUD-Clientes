@@ -2,6 +2,9 @@ package br.com.loja.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -49,5 +52,52 @@ public class ClienteDAO {
 			
 			
 		}
+	}
+	
+	public List<Cliente> obterClientes(){
+		String sql = "select * from clientes";
+		
+		List<Cliente> clientes = new ArrayList<>();
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		try {
+			conn = ConnectionFactory.createConnectionToMySQL();
+			
+			pstm = (PreparedStatement) conn.prepareStatement(sql);
+			
+			rset = pstm.executeQuery();
+			
+			while(rset.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setId(rset.getInt("id"));
+				cliente.setNome(rset.getString("nome"));
+				cliente.setSobrenome(rset.getString("Sobrenome"));
+				cliente.setSenha(rset.getString("senha"));
+				cliente.setEmail(rset.getString("email"));
+				cliente.setDataCadastro(rset.getDate("dataCadastro"));
+				
+				clientes.add(cliente);
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn!=null) {
+					conn.close();
+				}
+				if(pstm!=null) {
+					pstm.close();
+				}
+				if(rset!=null) {
+					rset.close();
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return clientes;
 	}
 }
