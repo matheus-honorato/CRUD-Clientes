@@ -7,11 +7,8 @@ public class Cliente {
 	private int id;
 	private String nome;
 	private String sobrenome;
-	private Long idade;
-	private String genero;
-	private Date dataNascimento;
+	private Date dataCadastro;
 	private String senha;
-	private String celular;
 	private String email;
 	
 	public int getId() {
@@ -33,35 +30,17 @@ public class Cliente {
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
-	public Long getIdade() {
-		return idade;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
-	public void setIdade(Long idade) {
-		this.idade = idade;
-	}
-	public String getGenero() {
-		return genero;
-	}
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	public String getCelular() {
-		return celular;
-	}
-	public void setCelular(String celular) {
-		this.celular = celular;
 	}
 	public String getEmail() {
 		return email;
