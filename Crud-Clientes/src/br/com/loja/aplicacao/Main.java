@@ -18,12 +18,27 @@ public class Main {
 			case 1:
 				DadosCadastro();
 				break;
+			case 4:
+				MostrarClientes();
+				break;
 			}
+			
 		} while (escolha != 5);
 		if (escolha == 5) {
 			System.out.println("Encerrando...");
 		}
 
+	}
+	public static void MostrarClientes() {
+		ClienteDAO clienteDAO = new ClienteDAO();
+		Cliente cliente = new Cliente();
+		
+		for(Cliente c : clienteDAO.obterClientes()) {
+			System.out.println("Nome: " + c.getNome() + " " + c.getSobrenome());
+			System.out.println("Email: " + c.getEmail());
+			System.out.println("Data Cadastro: " + c.getDataCadastro()+"\n");
+			
+		}
 	}
 	
 	public static void DadosCadastro() {
