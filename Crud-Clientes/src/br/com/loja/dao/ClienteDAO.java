@@ -13,7 +13,7 @@ import br.com.loja.model.Cliente;
 
 public class ClienteDAO {
 	
-	public void Cadastro(Cliente cliente) {
+	public void cadastro(Cliente cliente) {
 		String sql = "INSERT INTO clientes(nome, sobrenome, senha, email, dataCadastro) VALUES (?, ?, ?, ?, ?)";
 		
 		Connection conn = null;
@@ -54,6 +54,36 @@ public class ClienteDAO {
 		}
 	}
 	
+	public void excluir(int id) {
+		String sql = "DELETE FROM clientes where id = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			conn = ConnectionFactory.createConnectionToMySQL();
+			
+			pstm = (PreparedStatement) conn.prepareStatement(sql);
+			
+			pstm.setInt(1, id);
+			pstm.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn!=null) {
+					conn.close();
+				}
+				if(pstm!=null) {
+					pstm.close();
+				}
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			
+		}
+	}
+	
 	public List<Cliente> obterClientes(){
 		String sql = "select * from clientes";
 		
@@ -75,7 +105,6 @@ public class ClienteDAO {
 				cliente.setId(rset.getInt("id"));
 				cliente.setNome(rset.getString("nome"));
 				cliente.setSobrenome(rset.getString("Sobrenome"));
-				cliente.setSenha(rset.getString("senha"));
 				cliente.setEmail(rset.getString("email"));
 				cliente.setDataCadastro(rset.getDate("dataCadastro"));
 				
