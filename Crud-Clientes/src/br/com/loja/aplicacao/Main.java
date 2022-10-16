@@ -20,7 +20,10 @@ public class Main {
 				break;
 			case 2:
 				apagarCliente();
-
+				break;
+			case 3:
+				atualizarCliente();
+				break;
 			case 4:
 				mostrarClientes();
 				break;
@@ -46,7 +49,37 @@ public class Main {
 		return n;
 	}
 	
+	public static void atualizarCliente() {
+		ClienteDAO clienteDAO = new ClienteDAO();
+		Cliente cliente = new Cliente();
+		
+		mostrarClientes();
+		
+		System.out.println("Digite o identificador do cliente: ");
+		Scanner escolha = new Scanner(System.in);
+		int n = escolha.nextInt();
+		
+		System.out.println("Nome: ");
+		String nome = escolha.next();
+		cliente.setNome(nome);
+		
+		System.out.println("Sobrenome: ");
+		String sobrenome = escolha.next();
+		cliente.setSobrenome(sobrenome);
+		
+		System.out.println("Senha: ");
+		String senha = escolha.next();
+		cliente.setSenha(senha);
+		
+		System.out.println("Email: ");
+		String email = escolha.next();
+		cliente.setEmail(email);
+		cliente.setId(n);
 
+		
+		clienteDAO.update(cliente);
+		
+	}
 	
 	public static void apagarCliente() {
 		mostrarClientes();
@@ -60,13 +93,17 @@ public class Main {
 	public static void mostrarClientes() {
 		ClienteDAO clienteDAO = new ClienteDAO();
 		Cliente cliente = new Cliente();
+		Integer contador = 0;
 		
 		for(Cliente c : clienteDAO.obterClientes()) {
 			System.out.println("Identificador: " + c.getId());
 			System.out.println("Nome: " + c.getNome() + " " + c.getSobrenome());
 			System.out.println("Email: " + c.getEmail());
 			System.out.println("Data Cadastro: " + c.getDataCadastro()+"\n");
-			
+			contador++;
+		}
+		if(contador == 0) {
+			System.out.println("Não há clientes cadastrados");
 		}
 	}
 	

@@ -54,6 +54,40 @@ public class ClienteDAO {
 		}
 	}
 	
+	public void update(Cliente cliente) {
+		String sql = "UPDATE clientes SET nome = ?, sobrenome = ?, senha = ?, email = ? where id = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			conn = ConnectionFactory.createConnectionToMySQL();
+			pstm = (PreparedStatement) conn.prepareStatement(sql);
+			
+			pstm.setString(1, cliente.getNome());
+			pstm.setString(2, cliente.getSobrenome());
+			pstm.setString(3, cliente.getSenha());
+			pstm.setString(4, cliente.getEmail());
+			pstm.setInt(5, cliente.getId());
+			
+			pstm.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn!=null) {
+					conn.close();
+				}
+				if(pstm!=null) {
+					pstm.close();
+				}
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+	}
+	
 	public void excluir(int id) {
 		String sql = "DELETE FROM clientes where id = ?";
 		
